@@ -1,26 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Pagination } from 'antd';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { Button, Pagination, Result, Spin } from 'antd';
 import Question from 'components/Question/Question';
-
-export interface QuestionState {
-  question: string;
-  options: string[];
-  correctAnswer: string;
-}
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { useActions } from 'hooks/useAction';
 
 const Main: React.FC = () => {
-  const [questions, setQuestions] = useState<QuestionState[]>([]);
+  const { questions, loading, error } = useTypedSelector((state) => state.quiz);
 
-  async function fetchQuestions() {
-    const url = 'http://localhost:3001/questions';
-    const response = await axios.get(url);
-    setQuestions((prevQuestions) => [...prevQuestions, ...response.data]);
-  }
+  const { fetchQuestions } = useActions();
 
   useEffect(() => {
     fetchQuestions();
   }, []);
+
+  if (loading) {
+    return (
+      <Spin spinning size="large">
+        <div className="content" />
+      </Spin>
+    );
+  }
+
+  if (error) {
+    return (
+      <Result
+        status="500"
+        subTitle="Sorry, something went wrong."
+        extra={<Button type="primary">Back Home</Button>}
+      />
+    );
+  }
 
   return (
     <div>
