@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Checkbox } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { QuestionState } from 'store/types/quiz';
+import { selectCorrectAnswer } from 'store/action_creators/result';
+import { useDispatch } from 'react-redux';
 
-const Question: React.FC<QuestionState> = ({ question, options, correctAnswer }) => {
-  const onChange = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.value}`);
+type QuestionProps = {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  finish: boolean;
+};
+
+const Question: React.FC<QuestionProps> = ({ question, options, correctAnswer, finish }) => {
+  const [clicked, setClicked] = useState(false);
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const onChange = (answer: string) => {
+    if (answer === correctAnswer) {
+      dispatch(selectCorrectAnswer(1));
+    }
   };
 
   return (
     <>
       <div>{question}</div>
-      {options.map((item, i) => (
-        <Checkbox key={i} onChange={onChange}>
-          {item}
+      {options.map((item, id) => (
+        <Checkbox
+          key={id}
+          disabled={clicked || finish}
+          onChange={() => onChange(item)}
+          onClick={() => setClicked(true)}>
+          <div className={clicked && item === correctAnswer ? 'green' : clicked ? 'red' : null}>
+            {item}
+          </div>
         </Checkbox>
       ))}
     </>
