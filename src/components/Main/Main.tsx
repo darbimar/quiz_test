@@ -7,17 +7,25 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import Results from 'components/Results/Results';
 import { showQuizResult } from 'store/action_creators/result';
+import { getPagesCount } from 'utils/pages';
 
 const Main: React.FC = () => {
   const [finish, setFinished] = useState(false);
-  const { questions, loading, error } = useTypedSelector((state) => state.quiz);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  const { questions, loading, error, totalCount } = useTypedSelector((state) => state.quiz);
   const { showResult } = useTypedSelector((state) => state.result);
+  const questionsCount: number = 5;
 
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchQuestions());
-  }, []);
+    setTotalPages(getPagesCount(totalCount, questionsCount));
+  }, [totalCount]);
+
+  useEffect(() => {
+    dispatch(fetchQuestions(questionsCount, page));
+  }, [page]);
 
   if (loading) {
     return (
@@ -42,6 +50,10 @@ const Main: React.FC = () => {
     setFinished(true);
   };
 
+  const handleChangePage = (page: number) => {
+    setPage(page);
+  };
+
   return (
     <div>
       {questions.length > 0 && (
@@ -59,8 +71,13 @@ const Main: React.FC = () => {
           })}
         </div>
       )}
-      <Pagination simple defaultCurrent={1} total={20} />
-      <Button onClick={finishQuiz}>Узнать результат</Button>
+      <Pagination
+        defaultCurrent={page}
+        onChange={handleChangePage}
+        pageSize={questionsCount}
+        total={totalCount}
+      />
+      {page === totalPages && <Button onClick={finishQuiz}>Узнать результат</Button>}
       {showResult && <Results />}
     </div>
   );

@@ -2,18 +2,21 @@ export interface QuestionState {
   question: string;
   options: string[];
   correctAnswer: string;
+  totalCount: number;
 }
 
 export interface QuizState {
   questions: QuestionState[];
   loading: boolean;
   error: null | string;
+  totalCount: number;
 }
 
 export enum QuizActionTypes {
   FETCH_QUESTIONS = 'FETCH_USERS',
   FETCH_QUESTIONS_SUCCESS = 'FETCH_USERS_SUCCESS',
   FETCH_QUESTIONS_ERROR = 'FETCH_USERS_ERROR',
+  FETCH_QUESTIONS_COUNT = 'FETCH_QUESTIONS_COUNT',
 }
 
 interface FetchQuestionsAction {
@@ -31,7 +34,13 @@ interface FetchQuestionsErrorAction {
   payload?: string;
 }
 
+interface FetchTotalCountAction {
+  type: QuizActionTypes.FETCH_QUESTIONS_COUNT;
+  payload: number;
+}
+
 export type QuizAction =
   | FetchQuestionsAction
   | FetchQuestionsSuccesAction
-  | FetchQuestionsErrorAction;
+  | FetchQuestionsErrorAction
+  | FetchTotalCountAction;

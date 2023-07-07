@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { Checkbox } from 'antd';
-import { QuestionState } from 'store/types/quiz';
 import { selectCorrectAnswer } from 'store/action_creators/result';
 import { useDispatch } from 'react-redux';
 

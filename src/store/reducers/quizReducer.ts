@@ -4,16 +4,28 @@ const initialState: QuizState = {
   questions: [],
   loading: false,
   error: null,
+  totalCount: 0,
 };
 
 export const quizReducer = (state = initialState, action: QuizAction): QuizState => {
   switch (action.type) {
     case QuizActionTypes.FETCH_QUESTIONS:
-      return { questions: [], loading: true, error: null };
+      return { ...state, questions: [], loading: true, error: null };
     case QuizActionTypes.FETCH_QUESTIONS_SUCCESS:
-      return { questions: action.payload, loading: false, error: null };
+      return {
+        ...state,
+        questions: action.payload,
+        loading: false,
+        error: null,
+      };
     case QuizActionTypes.FETCH_QUESTIONS_ERROR:
-      return { questions: [], loading: false, error: action.payload };
+      return { ...state, questions: [], loading: false, error: action.payload };
+    case QuizActionTypes.FETCH_QUESTIONS_COUNT:
+      return {
+        ...state,
+        totalCount: action.payload,
+      };
+
     default:
       return state;
   }
