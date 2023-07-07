@@ -1,7 +1,8 @@
 import React, { Dispatch, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Checkbox } from 'antd';
 import { selectCorrectAnswer } from 'store/action_creators/result';
-import { useDispatch } from 'react-redux';
+import './Question.scss';
 
 type QuestionProps = {
   question: string;
@@ -21,8 +22,8 @@ const Question: React.FC<QuestionProps> = ({ question, options, correctAnswer, f
   };
 
   return (
-    <>
-      <div>{question}</div>
+    <div className="question">
+      <h3>{question}</h3>
       {options.map((item, id) => (
         <Checkbox
           key={id}
@@ -34,7 +35,7 @@ const Question: React.FC<QuestionProps> = ({ question, options, correctAnswer, f
           </div>
         </Checkbox>
       ))}
-    </>
+    </div>
   );
 };
 

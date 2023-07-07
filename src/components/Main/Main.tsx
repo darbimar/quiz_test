@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Pagination, Result, Spin } from 'antd';
-import Question from 'components/Question/Question';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { fetchQuestions } from 'store/action_creators/quiz';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import Results from 'components/Results/Results';
-import { showQuizResult } from 'store/action_creators/result';
 import { getPagesCount } from 'utils/pages';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { fetchQuestions } from 'store/action_creators/quiz';
+import { showQuizResult } from 'store/action_creators/result';
+import Question from 'components/Question/Question';
+import Results from 'components/Results/Results';
+import './Main.scss';
 
 const Main: React.FC = () => {
   const [finish, setFinished] = useState(false);
@@ -55,9 +56,9 @@ const Main: React.FC = () => {
   };
 
   return (
-    <div>
+    <main className="quiz">
       {questions.length > 0 && (
-        <div>
+        <div className="quiz__content">
           {questions.map((item, id) => {
             return (
               <Question
@@ -79,7 +80,7 @@ const Main: React.FC = () => {
       />
       {page === totalPages && <Button onClick={finishQuiz}>Узнать результат</Button>}
       {showResult && <Results />}
-    </div>
+    </main>
   );
 };
 
