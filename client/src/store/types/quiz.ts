@@ -21,12 +21,12 @@ export enum QuizActionTypes {
 
 interface FetchQuestionsAction {
   type: QuizActionTypes.FETCH_QUESTIONS;
-  payload?: any;
+  payload?: string;
 }
 
 interface FetchQuestionsSuccesAction {
   type: QuizActionTypes.FETCH_QUESTIONS_SUCCESS;
-  payload?: any[];
+  payload?: QuestionState[];
 }
 
 interface FetchQuestionsErrorAction {

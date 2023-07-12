@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Checkbox } from 'antd';
 import { selectCorrectAnswer } from 'store/action_creators/result';
 import './Question.scss';
+import { IDispatch } from 'store/types/dispatch';
 
 type QuestionProps = {
   question: string;
@@ -13,7 +14,7 @@ type QuestionProps = {
 
 const Question: React.FC<QuestionProps> = ({ question, options, correctAnswer, finish }) => {
   const [clicked, setClicked] = useState(false);
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Dispatch<IDispatch> = useDispatch();
 
   const onChange = (answer: string) => {
     if (answer === correctAnswer) {

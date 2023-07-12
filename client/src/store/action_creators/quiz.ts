@@ -2,10 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'react';
 import { QuizAction, QuizActionTypes } from 'store/types/quiz';
 
-export const fetchQuestions = (
-  limit: number,
-  page: number,
-): ((dispatch: Dispatch<QuizAction>) => Promise<void>) => {
+export const fetchQuestions = (limit: number, page: number) => {
   return async (dispatch: Dispatch<QuizAction>) => {
     try {
       dispatch({ type: QuizActionTypes.FETCH_QUESTIONS });
@@ -17,6 +14,7 @@ export const fetchQuestions = (
         },
       });
       setTimeout(() => {
+        console.log(response1.data);
         dispatch({ type: QuizActionTypes.FETCH_QUESTIONS_SUCCESS, payload: response1.data });
       }, 500);
       const response2 = await axios.get(url);
