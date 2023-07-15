@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { Dispatch } from 'react';
-import { QuizAction, QuizActionTypes } from 'store/types/quiz';
+import { AppDispatch } from 'store';
+import { QuizActionTypes } from 'store/types/quiz';
 
 export const fetchQuestions = (limit: number, page: number) => {
-  return async (dispatch: Dispatch<QuizAction>) => {
+  return async (dispatch: AppDispatch) => {
     try {
       dispatch({ type: QuizActionTypes.FETCH_QUESTIONS });
       const url = 'http://localhost:3001/questions';
@@ -14,7 +14,6 @@ export const fetchQuestions = (limit: number, page: number) => {
         },
       });
       setTimeout(() => {
-        console.log(response1.data);
         dispatch({ type: QuizActionTypes.FETCH_QUESTIONS_SUCCESS, payload: response1.data });
       }, 500);
       const response2 = await axios.get(url);

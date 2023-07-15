@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
-import MyForm from 'components/MyForm/MyForm';
 
-const MyModal: React.FC = () => {
+type ModalProps = {
+  title: string;
+  onHide?: () => void;
+};
+
+const MyModal: React.FC<ModalProps> = ({ children, title, onHide }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -10,7 +14,7 @@ const MyModal: React.FC = () => {
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    onHide();
   };
 
   const handleCancel = () => {
@@ -20,16 +24,16 @@ const MyModal: React.FC = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        Начать Quiz
       </Button>
       <Modal
         centered
         footer={null}
-        title="Basic Modal"
+        title={title}
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}>
-        <MyForm />
+        onCancel={handleCancel}
+        onOk={handleOk}>
+        {children}
       </Modal>
     </>
   );

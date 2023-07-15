@@ -18,6 +18,19 @@
   height: 100vh;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+}
+
+.footer {
+  text-align: center;
+  background-color: #fff;
+}
+
 .red {
   color: red
 }

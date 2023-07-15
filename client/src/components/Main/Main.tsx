@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Pagination, Result, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
 import { getPagesCount } from 'utils/pages';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { fetchQuestions } from 'store/action_creators/quiz';
-import { showQuizResult } from 'store/action_creators/result';
+import { fetchQuestions } from 'store/action-creators/quiz';
+import { showQuizResult } from 'store/action/result';
 import Question from 'components/Question/Question';
 import Results from 'components/Results/Results';
+import Timer from 'components/Timer/Timer';
+import type {} from 'redux-thunk/extend-redux';
 import './Main.scss';
 
 const Main: React.FC = () => {
@@ -16,9 +17,10 @@ const Main: React.FC = () => {
   const [page, setPage] = useState(1);
   const { questions, loading, error, totalCount } = useTypedSelector((state) => state.quiz);
   const { showResult } = useTypedSelector((state) => state.result);
+
   const questionsCount: number = 5;
 
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTotalPages(getPagesCount(totalCount, questionsCount));
@@ -57,6 +59,7 @@ const Main: React.FC = () => {
 
   return (
     <main className="quiz">
+      <Timer finishQuiz={finishQuiz} />
       {questions.length > 0 && (
         <div className="quiz__content">
           {questions.map((item, id) => {
