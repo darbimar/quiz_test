@@ -5,6 +5,7 @@ import StartPage from 'pages/StartPage';
 import QuizPage from 'pages/QuizPage';
 import { useDispatch } from 'react-redux';
 import { auth } from 'store/action-creators/auth';
+import ErroPage from 'pages/ErrorPage';
 
 export function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export function App() {
       <Route path="/" element={<MaynLayout />}>
         <Route index element={<StartPage />} />
         <Route path="quiz" element={<QuizPage />} />
-        <Route path="*" element={<StartPage />} />
+        <Route path="*" element={<ErroPage />} />
       </Route>
     </Routes>
   );
