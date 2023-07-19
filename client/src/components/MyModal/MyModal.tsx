@@ -3,10 +3,11 @@ import { Button, Modal } from 'antd';
 
 type ModalProps = {
   title: string;
+  RegistrationForm?: boolean;
   onHide?: () => void;
 };
 
-const MyModal: React.FC<ModalProps> = ({ children, title, onHide }) => {
+const MyModal: React.FC<ModalProps> = ({ children, title, RegistrationForm, onHide }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -19,6 +20,10 @@ const MyModal: React.FC<ModalProps> = ({ children, title, onHide }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+
+    if (RegistrationForm) {
+      onHide();
+    }
   };
 
   return (

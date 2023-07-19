@@ -11,13 +11,15 @@ const StartPage = () => {
   };
 
   const handleHideForm = () => {
-    setRegistrationForm(false);
+    if (RegistartionForm) {
+      setRegistrationForm(false);
+    }
   };
 
   return (
     <>
       {RegistrationForm ? (
-        <MyModal title="Регистрация" onHide={handleHideForm}>
+        <MyModal title="Регистрация" onHide={handleHideForm} RegistrationForm={RegistrationForm}>
           <RegistartionForm handleHideReg={handleHideForm} />
         </MyModal>
       ) : (
