@@ -6,11 +6,13 @@ export type CurrentUserState = {
 export interface AuthState {
   currentUser: CurrentUserState | {};
   isAuth: boolean;
+  notificationMessage: string;
 }
 
 export enum AuthActionTypes {
   SET_USER = 'SET_USER',
   LOGOUT = 'LOGOUT',
+  SET_NOTIFICATION = 'SET_NOTIFICATION',
 }
 
 export interface SetUserAction {
@@ -22,4 +24,9 @@ interface LogoutAction {
   type: AuthActionTypes.LOGOUT;
 }
 
-export type AuthAction = SetUserAction | LogoutAction;
+interface SetNotificationAction {
+  type: AuthActionTypes.SET_NOTIFICATION;
+  payload: string;
+}
+
+export type AuthAction = SetUserAction | LogoutAction | SetNotificationAction;

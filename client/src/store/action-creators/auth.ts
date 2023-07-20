@@ -1,17 +1,19 @@
 import axios from 'axios';
 import { AppDispatch } from 'store';
-import { setUser } from 'store/action/auth';
+import { setNotification, setUser } from 'store/action/auth';
 
-export const registration = async (email: string, password: string) => {
-  try {
-    const response = await axios.post(`http://localhost:5000/api/auth/registration`, {
-      email,
-      password,
-    });
-    alert(response.data.message);
-  } catch (error) {
-    alert(error.response.data.message);
-  }
+export const registration = (email: string, password: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/auth/registration`, {
+        email,
+        password,
+      });
+      dispatch(setNotification(response.data.message));
+    } catch (error) {
+      dispatch(setNotification(error.response.data.message));
+    }
+  };
 };
 
 export const login = (email: string, password: string) => {
@@ -24,8 +26,8 @@ export const login = (email: string, password: string) => {
 
       dispatch(setUser(response.data.user));
       localStorage.setItem('token', response.data.token);
-    } catch (e) {
-      alert(e.response.data.message);
+    } catch (error) {
+      dispatch(setNotification(error.response.data.message));
     }
   };
 };
@@ -38,9 +40,8 @@ export const auth = () => {
       });
       dispatch(setUser(response.data.user));
       localStorage.setItem('token', response.data.token);
-    } catch (e) {
-      alert(e.response.data.message);
-      localStorage.removeItem('token');
+    } catch (error) {
+      dispatch(setNotification(error.response.data.message));
     }
   };
 };

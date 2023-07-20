@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { registration } from 'store/action-creators/auth';
+import { useDispatch } from 'react-redux';
 
 type RegistartionProps = {
   handleHideReg: () => void;
@@ -10,9 +11,10 @@ type RegistartionProps = {
 const RegistartionForm: React.FC<RegistartionProps> = ({ handleHideReg }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    registration(email, password);
+    dispatch(registration(email, password));
     handleHideReg();
   };
 
@@ -32,7 +34,7 @@ const RegistartionForm: React.FC<RegistartionProps> = ({ handleHideReg }) => {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Пароль"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}>
         <Input.Password value={password} onChange={(event) => setPassword(event.target.value)} />

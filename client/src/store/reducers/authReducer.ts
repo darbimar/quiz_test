@@ -3,6 +3,7 @@ import { AuthAction, AuthActionTypes, AuthState } from 'store/types/auth';
 const initialState: AuthState = {
   currentUser: {},
   isAuth: false,
+  notificationMessage: '',
 };
 
 export const authReducer = (state = initialState, action: AuthAction) => {
@@ -12,6 +13,8 @@ export const authReducer = (state = initialState, action: AuthAction) => {
     case AuthActionTypes.LOGOUT:
       localStorage.removeItem('token');
       return { ...state, currentUser: {}, isAuth: false };
+    case AuthActionTypes.SET_NOTIFICATION:
+      return { ...state, notificationMessage: action.payload };
     default:
       return state;
   }

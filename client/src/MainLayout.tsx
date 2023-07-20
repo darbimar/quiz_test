@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Footer, Header } from 'antd/es/layout/layout';
 import img from 'assets/quiz.png';
 import 'styles/app.scss';
@@ -6,7 +6,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { logout } from 'store/action/auth';
+import { logout, setNotification } from 'store/action/auth';
 
 const MaynLayout: FC = () => {
   const { isAuth } = useTypedSelector((state) => state.auth);
@@ -14,9 +14,16 @@ const MaynLayout: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/quiz');
+    }
+  }, [isAuth]);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
+    dispatch(setNotification(''));
   };
 
   return (
