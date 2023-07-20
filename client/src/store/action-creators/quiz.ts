@@ -6,13 +6,8 @@ export const fetchQuestions = (limit: number, page: number) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch({ type: QuizActionTypes.FETCH_QUESTIONS });
-      const url = 'http://localhost:3001/questions';
-      const response1 = await axios.get(url, {
-        params: {
-          _limit: limit,
-          _page: page,
-        },
-      });
+      const url = 'https://64b925a879b7c9def6c0a4dd.mockapi.io/questions';
+      const response1 = await axios.get(`${url}?page=${page}&limit=${limit}`);
       setTimeout(() => {
         dispatch({ type: QuizActionTypes.FETCH_QUESTIONS_SUCCESS, payload: response1.data });
       }, 500);
