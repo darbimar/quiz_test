@@ -5,7 +5,7 @@ import { setNotification, setUser } from 'store/action/auth';
 export const registration = (email: string, password: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/registration`, {
+      const response = await axios.post(`https://quiz-test-wyyb.vercel.app/api/auth/registration`, {
         email,
         password,
       });
@@ -19,7 +19,7 @@ export const registration = (email: string, password: string) => {
 export const login = (email: string, password: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/login`, {
+      const response = await axios.post(`https://quiz-test-wyyb.vercel.app/api/auth/login`, {
         email,
         password,
       });
@@ -35,7 +35,7 @@ export const login = (email: string, password: string) => {
 export const auth = () => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/auth/auth`, {
+      const response = await axios.get(`https://quiz-test-wyyb.vercel.app/api/auth/auth`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       dispatch(setUser(response.data.user));
