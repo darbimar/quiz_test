@@ -15,15 +15,6 @@
   align-items: center;
   padding: 20px 120px;
   height: 100vh;
-
-  @media (max-width: 768px) {
-    padding: 20px 80px;
-    gap: 40px;
-  }
-
-  @media (max-width: 768px) {
-    padding: 20px 20px;
-  }
 }
 
 .header {
@@ -45,4 +36,17 @@
 
 .green {
   color: green
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px 80px;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px 20px;
+  }
 }
